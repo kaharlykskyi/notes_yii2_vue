@@ -13,7 +13,6 @@
 <script>
 import AddNewButton from "./AddNewButton";
 import Note from "./Note";
-import httpClient from "../services/http.service";
 import notesService from "../services/notes.service";
 
 export default {
@@ -33,13 +32,13 @@ export default {
     },
     async noteUpdated(note) {
       const response = await notesService.update( note);
-    }
-  },
-  async deleteNote(note) {
-    const {status} = await notesService.delete(note.id);
-    if(status === 204) {
-      this.notes.splice(this.notes.indexOf(note), 1);
-    }
+    },
+    async deleteNote(note) {
+      const {status} = await notesService.delete(note.id);
+      if(status === 204) {
+        this.notes.splice(this.notes.indexOf(note), 1);
+      }
+    },
   },
   async mounted() {
     const {status, data} = await notesService.get();
